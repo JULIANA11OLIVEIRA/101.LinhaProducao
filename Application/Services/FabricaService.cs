@@ -1,4 +1,5 @@
-﻿using Application.Contracts.Services;
+﻿using Application.Contracts.Repositories;
+using Application.Contracts.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,21 @@ namespace Application.Services
 {
     public  class FabricaService: IFabricaService
     {
+        private readonly IMaquinaRepository _fabricaRepository;
+
+        public FabricaService(IMaquinaRepository fabricaRepository)
+        {
+            _fabricaRepository = fabricaRepository;
+        }
+
         public string BuscarPorFiltro(string maquina, string tipo)
         {
-            return $"Listando da linha de produção, a máquina {maquina} do tipo {tipo}";
+            return _fabricaRepository.BuscarPorFiltro(maquina, tipo);
                 }
 
         public string BuscarPorMaquina(string maquina)
         {
-            return $"Listando da linha de produção, a máquina {maquina}";
+            return  _fabricaRepository.BuscarMaquina(maquina);
         }
     }
 }
